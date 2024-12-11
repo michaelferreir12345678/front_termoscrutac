@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import 'primereact/resources/themes/lara-light-indigo/theme.css';  // Tema PrimeReact
-import 'primereact/resources/primereact.min.css';  // Estilos do PrimeReact
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/primereact.min.css";
 
 function UploadPage() {
   const [file, setFile] = useState(null);
@@ -13,40 +13,30 @@ function UploadPage() {
   const [studentsData, setStudentsData] = useState([]);
   const [units, setUnits] = useState({});
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({}); // Estado para os erros de validação
-  const [backendError, setBackendError] = useState(""); // Estado para mensagens de erro do backend
+  const [errors, setErrors] = useState({});
+  const [backendError, setBackendError] = useState("");
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
-    setBackendError(""); // Limpa erros anteriores ao selecionar um novo arquivo
+    setBackendError("");
   };
 
-  const handlePolicyChange = (e) => {
-    setPolicyNumber(e.target.value);
-  };
-
-  const handleStartDateChange = (e) => {
-    setStartDate(e.target.value);
-  };
-
-  const handleEndDateChange = (e) => {
-    setEndDate(e.target.value);
+  const handleInputChange = (setter) => (event) => {
+    setter(event.target.value);
   };
 
   const handleUnitChange = (studentName, unit) => {
     setUnits((prev) => ({ ...prev, [studentName]: unit }));
-
-    // Remover erro quando a unidade é selecionada
     setErrors((prevErrors) => {
       const newErrors = { ...prevErrors };
-      delete newErrors[studentName]; // Remover o erro para o aluno específico
+      delete newErrors[studentName];
       return newErrors;
     });
   };
 
   const handleShowStudents = async () => {
     if (!file) {
-      console.error("Nenhum arquivo selecionado");
+      setBackendError("Por favor, selecione um arquivo.");
       return;
     }
 
@@ -71,7 +61,7 @@ function UploadPage() {
           telefone: data.telefone[index],
         }));
         setStudentsData(studentsData);
-        setBackendError(""); // Limpar mensagem de erro ao carregar dados com sucesso
+        setBackendError("");
       } else {
         const errorData = await response.json();
         setBackendError(errorData.error || "Erro desconhecido ao processar a solicitação.");
@@ -84,20 +74,18 @@ function UploadPage() {
   };
 
   const handleGenerateTerms = async () => {
-    // Verificar se todas as unidades concedentes estão selecionadas corretamente
     const newErrors = {};
     studentsData.forEach((student) => {
       if (!units[student.name] || units[student.name] === "Selecione...") {
-        newErrors[student.name] = "Campo obrigatório"; // Adiciona erro para o aluno específico
+        newErrors[student.name] = "Campo obrigatório";
       }
     });
 
     if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors); // Atualiza os erros
-      return; // Não prosseguir se houver erros
+      setErrors(newErrors);
+      return;
     }
 
-    // Se não houver erros, enviar para o backend
     const payload = {
       policyNumber,
       startDate,
@@ -124,14 +112,13 @@ function UploadPage() {
       if (response.ok) {
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
-
         const link = document.createElement("a");
         link.href = url;
         link.setAttribute("download", "termos_estagio.zip");
         document.body.appendChild(link);
         link.click();
         link.parentNode.removeChild(link);
-        setBackendError(""); // Limpa mensagem de erro ao gerar os termos com sucesso
+        setBackendError("");
       } else {
         const errorData = await response.json();
         setBackendError(errorData.error || "Erro desconhecido ao processar a solicitação.");
@@ -145,17 +132,12 @@ function UploadPage() {
 
   return (
     <div className="container mt-5">
-      <h1>Gerador de Termo de Compromisso de Estágio</h1>
-      <p>
-        A planilha deve conter as colunas: Nome; CPF; Matricula; Endereço;
-        Cidade/UF; Telefone.
+      <h1 className="text-primary">Gerador de Termo de Compromisso de Estágio</h1>
+      <p className="text-muted">
+        A planilha deve conter as colunas: Nome; CPF; Matrícula; Endereço; Cidade/UF; Telefone.
       </p>
 
-      {backendError && (
-        <div className="alert alert-danger" role="alert">
-          {backendError}
-        </div>
-      )}
+      {backendError && <div className="alert alert-danger">{backendError}</div>}
 
       <div className="row mb-3">
         <div className="col-md-4">
@@ -164,55 +146,50 @@ function UploadPage() {
             className="form-control"
             placeholder="Número da Apólice"
             value={policyNumber}
-            onChange={handlePolicyChange}
+            onChange={handleInputChange(setPolicyNumber)}
           />
         </div>
         <div className="col-md-4">
           <input
             type="date"
             className="form-control"
-            placeholder="Data Início da Vigência"
             value={startDate}
-            onChange={handleStartDateChange}
+            onChange={handleInputChange(setStartDate)}
           />
         </div>
         <div className="col-md-4">
           <input
             type="date"
             className="form-control"
-            placeholder="Data Final de Vigência"
             value={endDate}
-            onChange={handleEndDateChange}
+            onChange={handleInputChange(setEndDate)}
           />
         </div>
       </div>
 
       <div className="mb-3">
-        <input
-          type="file"
-          className="form-control"
-          onChange={handleFileChange}
-        />
+        <input type="file" className="form-control" onChange={handleFileChange} />
       </div>
 
       <button
         className="btn btn-primary mt-3"
         onClick={handleShowStudents}
         disabled={!file || loading}
-
       >
         {loading ? "Carregando..." : "Incluir Unidade Concedente"}
       </button>
 
       {studentsData.length > 0 && (
         <div className="mt-5">
-          <h2 >Lista de Alunos</h2>
-          <h6 className="mb-5" >Inclua as unidades concedentes dos alunos abaixo</h6>
-          <DataTable value={studentsData} responsive stripedRows>
-            <Column field="name" header="Nome" />
-            <Column field="cpf" header="CPF" />
-            <Column field="matricula" header="Matricula" />
+          <h2>Lista de Alunos</h2>
+          <p className="text-muted mb-4">Inclua as unidades concedentes dos alunos abaixo.</p>
+
+          <DataTable value={studentsData} responsiveLayout="scroll" stripedRows>
+            <Column field="name" header="Nome" sortable />
+            <Column field="cpf" header="CPF" sortable />
+            <Column field="matricula" header="Matrícula" />
             <Column
+              header="Unidade Concedente"
               body={(rowData) => (
                 <div>
                   <select
@@ -227,23 +204,21 @@ function UploadPage() {
                     <option value="Aracati">Aracati</option>
                     <option value="Horizonte">Horizonte</option>
                   </select>
-                  {errors[rowData.name] && (
-                    <div className="invalid-feedback">{errors[rowData.name]}</div>
-                  )}
+                  {errors[rowData.name] && <div className="invalid-feedback">{errors[rowData.name]}</div>}
                 </div>
               )}
-              header="Unidade Concedente"
             />
           </DataTable>
 
           <button
-            className="btn btn-success mt-4 mb-5"
+            className="btn btn-success mt-4"
             onClick={handleGenerateTerms}
             disabled={loading}
           >
             {loading ? "Gerando..." : "Gerar e Baixar Termos"}
           </button>
         </div>
+
       )}
     </div>
   );
