@@ -48,7 +48,7 @@ function UploadPage() {
 
         setLoading(true);
         try {
-            const response = await fetch("http://127.0.0.1:5000/nomes_alunos", {
+            const response = await fetch("https://backendtermoscrutac.fly.dev/nomes_alunos", {
                 method: "POST",
                 body: formData,
             });
@@ -108,7 +108,7 @@ function UploadPage() {
 
         setLoading(true);
         try {
-            const response = await fetch("http://127.0.0.1:5000/generate", {
+            const response = await fetch("https://backendtermoscrutac.fly.dev/generate", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
