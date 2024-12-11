@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { DataTable } from "primereact/datatable";
+import { Calendar } from 'primereact/calendar';
 import { Column } from "primereact/column";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
@@ -45,7 +46,7 @@ function UploadPage() {
 
     setLoading(true);
     try {
-      const response = await fetch("https://backendtermoscrutac.fly.dev/nomes_alunos", {
+      const response = await fetch("http://127.0.0.1:5000/nomes_alunos", {
         method: "POST",
         body: formData,
       });
@@ -103,7 +104,7 @@ function UploadPage() {
 
     setLoading(true);
     try {
-      const response = await fetch("https://backendtermoscrutac.fly.dev/generate", {
+      const response = await fetch("http://127.0.0.1:5000/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -150,21 +151,25 @@ function UploadPage() {
           />
         </div>
         <div className="col-md-4">
-          <input
-            type="date"
-            className="form-control"
-            value={startDate}
-            onChange={handleInputChange(setStartDate)}
-          />
-        </div>
-        <div className="col-md-4">
-          <input
-            type="date"
-            className="form-control"
-            value={endDate}
-            onChange={handleInputChange(setEndDate)}
-          />
-        </div>
+        <Calendar 
+          value={startDate} 
+          onChange={(e) => setStartDate(e.value)} 
+          showIcon 
+          placeholder="Data Início da Vigência"
+          dateFormat="dd/mm/yy"
+          className="w-100"
+        />
+      </div>
+      <div className="col-md-4">
+        <Calendar 
+          value={endDate} 
+          onChange={(e) => setEndDate(e.value)} 
+          showIcon 
+          placeholder="Data Final da Vigência"
+          dateFormat="dd/mm/yy"
+          className="w-100"
+        />
+      </div>
       </div>
 
       <div className="mb-3">
