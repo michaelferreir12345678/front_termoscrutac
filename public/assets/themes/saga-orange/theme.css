@@ -5715,5 +5715,11 @@
   }
 }
 
+.input-height {
+  height: 40px; /* Define uma altura consistente */
+  font-size: 1rem; /* Ajusta o tamanho da fonte */
+}
+
+
 
 
