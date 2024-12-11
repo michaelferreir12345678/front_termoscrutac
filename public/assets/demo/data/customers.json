@@ -1,0 +1,112 @@
+[
+    {
+        "id": 1,
+        "name": "John Doe",
+        "country": { "name": "USA", "code": "US" },
+        "representative": { "name": "Amy Elsner", "image": "amyelsner.png" },
+        "date": "2023-01-15",
+        "balance": 5000.00,
+        "status": "Active",
+        "activity": 80,
+        "verified": true
+    },
+    {
+        "id": 2,
+        "name": "Anna Smith",
+        "country": { "name": "Brazil", "code": "BR" },
+        "representative": { "name": "Asiya Javayant", "image": "asiyajavayant.png" },
+        "date": "2022-12-10",
+        "balance": 3000.00,
+        "status": "Inactive",
+        "activity": 40,
+        "verified": false
+    },
+    {
+        "id": 3,
+        "name": "Michael Brown",
+        "country": { "name": "Germany", "code": "DE" },
+        "representative": { "name": "Ioni Bowcher", "image": "ionibowcher.png" },
+        "date": "2023-07-22",
+        "balance": 2000.00,
+        "status": "Pending",
+        "activity": 50,
+        "verified": true
+    },
+    {
+        "id": 4,
+        "name": "Laura Garcia",
+        "country": { "name": "Spain", "code": "ES" },
+        "representative": { "name": "Onyama Limba", "image": "onyamalimba.png" },
+        "date": "2023-05-30",
+        "balance": 10000.00,
+        "status": "Active",
+        "activity": 100,
+        "verified": false
+    },
+    {
+        "id": 5,
+        "name": "David Lee",
+        "country": { "name": "Japan", "code": "JP" },
+        "representative": { "name": "Xuxue Feng", "image": "xuxuefeng.png" },
+        "date": "2023-08-12",
+        "balance": 1200.00,
+        "status": "Active",
+        "activity": 90,
+        "verified": true
+    },
+    {
+        "id": 6,
+        "name": "Karen Wright",
+        "country": { "name": "Australia", "code": "AU" },
+        "representative": { "name": "Ivan Magalhaes", "image": "ivanmagalhaes.png" },
+        "date": "2022-11-22",
+        "balance": 7500.00,
+        "status": "Inactive",
+        "activity": 60,
+        "verified": true
+    },
+    {
+        "id": 7,
+        "name": "Robert Johnson",
+        "country": { "name": "Canada", "code": "CA" },
+        "representative": { "name": "Stephen Shaw", "image": "stephenshaw.png" },
+        "date": "2023-03-18",
+        "balance": 6500.00,
+        "status": "Active",
+        "activity": 70,
+        "verified": false
+    },
+    {
+        "id": 8,
+        "name": "Emily Clark",
+        "country": { "name": "France", "code": "FR" },
+        "representative": { "name": "Alex Tinsley", "image": "alextinsley.png" },
+        "date": "2023-06-08",
+        "balance": 3200.00,
+        "status": "Pending",
+        "activity": 30,
+        "verified": true
+    },
+    {
+        "id": 9,
+        "name": "William Davis",
+        "country": { "name": "Italy", "code": "IT" },
+        "representative": { "name": "Amy Elsner", "image": "amyelsner.png" },
+        "date": "2023-04-12",
+        "balance": 4700.00,
+        "status": "Active",
+        "activity": 95,
+        "verified": false
+    },
+    {
+        "id": 10,
+        "name": "Jessica Wilson",
+        "country": { "name": "UK", "code": "GB" },
+        "representative": { "name": "Asiya Javayant", "image": "asiyajavayant.png" },
+        "date": "2023-09-01",
+        "balance": 2500.00,
+        "status": "Inactive",
+        "activity": 20,
+        "verified": true
+    }
+]
