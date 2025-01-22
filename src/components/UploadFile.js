@@ -238,6 +238,8 @@ function UploadPage() {
                                       <option value="Aquiraz">Aquiraz</option>
                                       <option value="Aracati">Aracati</option>
                                       <option value="Horizonte">Horizonte</option>
+                                      <option value="Fortaleza">Fortaleza</option>
+
                                   </select>
                                   {errors[rowData.name] && (
                                       <div className="invalid-feedback">{errors[rowData.name]}</div>
